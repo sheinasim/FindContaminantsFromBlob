@@ -30,7 +30,7 @@ If this script is useful to you, please cite the following in your publication:
 @software{FindContaminantsFromBlob,
   author = {Sim, Sheina B.},
   title = {FindContaminantsFromBlob},
-  url = {https://github.com/sheinasim/HiFiAdapterFilt}
+  url = {https://github.com/sheinasim/FindContaminantsFromBlob}
 }
 ```
 
