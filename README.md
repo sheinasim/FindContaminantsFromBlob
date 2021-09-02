@@ -1,5 +1,5 @@
 # FindContaminantsFromBlob 
-Print list of contigs identified as "Not Insect" from using the Blobtools taxrule: bestsumorder
+Print list of contigs identified as "Not Arthropod" from using the Blobtools taxrule: bestsumorder
 
 This script is designed to be run on the output of the blobtools pipeline following adding hits from blast and or diamond blast. 
 

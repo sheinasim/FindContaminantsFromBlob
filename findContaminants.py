@@ -11,7 +11,7 @@ args = parser.parse_args()
 with open(args.blobdir + '/identifiers.json', 'r') as f:
         identifiers = json.loads(f.read()) 
 
-with open(args.blobdir + '/bestsumorder_class.json', 'r') as f:
+with open(args.blobdir + '/bestsumorder_phylum.json', 'r') as f:
         bestsumorder_class = json.loads(f.read())
 
 def findKeepersandContaminants(identifiersFile, bestsumorderclassFile):
@@ -24,8 +24,8 @@ def findKeepersandContaminants(identifiersFile, bestsumorderclassFile):
 	df_bsc_keys['value'] = df_bsc_keys.index
 	df_bsc = pd.merge(df_bsc_values, df_bsc_keys, on ='value')
 	df_id = df_id.join(df_bsc)
-	keepers = df_id[df_id['class'].isin(['Insecta', 'no-hit', 'undef'])]
-	contaminants = df_id[~df_id['class'].isin(['Insecta', 'no-hit', 'undef'])]
+	keepers = df_id[df_id['class'].isin(['Arthropoda', 'no-hit', 'undef'])]
+	contaminants = df_id[~df_id['class'].isin(['Arthropoda', 'no-hit', 'undef'])]
 	return contaminants, keepers
 
 prefix = args.blobdir.split('/')[-1]
