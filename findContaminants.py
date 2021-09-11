@@ -17,6 +17,18 @@ with open(args.blobdir + '/bestsumorder_phylum.json', 'r') as f:
 with open(args.blobdir + '/bestsumorder_species.json', 'r') as f:
 		bestsumorder_species = json.loads(f.read())
 
+with open(args.blobdir + '/bestsumorder_class.json', 'r') as f:
+		bestsumorder_class = json.loads(f.read())
+
+with open(args.blobdir + '/bestsumorder_order.json', 'r') as f:
+		bestsumorder_order = json.loads(f.read())
+
+with open(args.blobdir + '/bestsumorder_family.json', 'r') as f:
+		bestsumorder_family = json.loads(f.read())
+
+with open(args.blobdir + '/bestsumorder_genus.json', 'r') as f:
+		bestsumorder_genus = json.loads(f.read())		
+
 def findKeepersandContaminants(identifiersFile, bestsumorderFile):
 	df_id = pd.json_normalize(identifiersFile, record_path=['values'])
 	df_id = df_id.set_axis(["contig"], axis=1)
@@ -25,13 +37,13 @@ def findKeepersandContaminants(identifiersFile, bestsumorderFile):
 	df_bsc_keys = pd.json_normalize(bestsumorderFile, record_path=['keys'])
 	df_bsc_keys = df_bsc_keys.set_axis(["taxa"], axis=1)
 	df_bsc_keys['value'] = df_bsc_keys.index
-	df_bsc = pd.merge(df_bsc_values, df_bsc_keys, on ='value')
+	df_bsc = df_bsc_values.join(df_bsc_keys, lsuffix='_value', rsuffix='_key', on = 'value')['taxa']
 	df_id = df_id.join(df_bsc)
 	keepers = df_id[df_id['taxa'].isin(['Arthropoda', 'no-hit', 'undef'])]
 	contaminants = df_id[~df_id['taxa'].isin(['Arthropoda', 'no-hit', 'undef'])]
 	return contaminants, keepers
 
-def assignContaminantstoSpecies(identifiersFile, bestsumorderFile):
+def assignContaminantstoSpecies(identifiersFile, bestsumorderFile, bsophylum, bsoclass, bsoorder, bsofamily, bsogenus, bsospecies):
 	df_id = pd.json_normalize(identifiersFile, record_path=['values'])
 	df_id = df_id.set_axis(["contig"], axis=1)
 	df_bsc_values = pd.json_normalize(bestsumorderFile, record_path=['values'])
@@ -43,7 +55,7 @@ def assignContaminantstoSpecies(identifiersFile, bestsumorderFile):
 	df_id = df_id.join(df_bsc)
 	return df_id
 
-speciesTbl = assignContaminantstoSpecies(identifiers, bestsumorder_species)
+speciesTbl = assignContaminantstoSpecies(identifiers, bestsumorder_species, bestsumorder_phylum, bestsumorder_class, bestsumorder_order, bestsumorder_family, bestsumorder_genus, bestsumorder_species)
 
 prefix = args.blobdir.split('/')[-1]
 
