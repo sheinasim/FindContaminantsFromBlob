@@ -77,3 +77,5 @@ contaminantTigs, keeperTigs = findKeepersandContaminants(identifiers, bestsumord
 contaminantTigs['contig'].to_csv(contaminants_outfile, sep='\t', index=False, header=False)
 keeperTigs['contig'].to_csv(keepers_outfile, sep='\t', index=False, header=False)
 speciesTbl.to_csv(species_outfile, sep='\t', index=False, header=True)
+
+print("Find Contaminants from BLOBs is finished.")
