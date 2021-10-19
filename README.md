@@ -13,14 +13,15 @@ Dependencies:
 
 ### Usage
   
-> python findContaminants.py pathToBlobdir  
+> python findContaminants.py pathToBlobdir .fasta 
 
 If no arguments are provided, the script will return help message.
 
 ## Outputs
 
-* ./{blobdir prefix}\_contaminants.txt 
-* ./{blobdir prefix}\_keepers.txt 
+* ./{blobdir prefix}\_contaminants.tsv 
+* ./{blobdir prefix}\_keepers.tsv 
+* ./{blobdir prefix}\_taxa.tsv
 
 ### Citation
 
