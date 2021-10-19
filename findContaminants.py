@@ -42,20 +42,6 @@ taxa = {"phylum" : bestsumorder_phylum,
         "genus": bestsumorder_genus,
         "species" : bestsumorder_species}
 
-def findKeepersandContaminants(identifiersFile, bestsumorderFile):
-	df_id = pd.json_normalize(identifiersFile, record_path=['values'])
-	df_id = df_id.set_axis(["contig"], axis=1)
-	df_bsc_values = pd.json_normalize(bestsumorderFile, record_path=['values'])
-	df_bsc_values = df_bsc_values.set_axis(["value"], axis=1)
-	df_bsc_keys = pd.json_normalize(bestsumorderFile, record_path=['keys'])
-	df_bsc_keys = df_bsc_keys.set_axis(["taxa"], axis=1)
-	df_bsc_keys['value'] = df_bsc_keys.index
-	df_bsc = df_bsc_values.join(df_bsc_keys, lsuffix='_value', rsuffix='_key', on = 'value')['taxa']
-	df_id = df_id.join(df_bsc)
-	keepers = df_id[df_id['taxa'].isin(['Arthropoda', 'no-hit', 'undef'])]
-	contaminants = df_id[~df_id['taxa'].isin(['Arthropoda', 'no-hit', 'undef'])]
-	return contaminants, keepers
-
 def assignContaminantstoSpecies(identifiersFile, taxa_dict, ctgLengths):
     df_id = ctgLengths
     for taxon, file in taxa_dict.items():
