@@ -66,8 +66,8 @@ contaminants_outfile = prefix +'_contaminants.tsv'
 keepers_outfile = prefix +'_keepers.tsv'
 species_outfile = prefix + '_taxa.tsv'
 
-contaminantTigs[['contig', 'length']].to_csv(contaminants_outfile, sep='\t', index=False, header=False)
-keeperTigs[['contig', 'length']].to_csv(keepers_outfile, sep='\t', index=False, header=False)
+contaminantTigs[['contig', 'phylum', 'length']].to_csv(contaminants_outfile, sep='\t', index=False, header=False)
+keeperTigs[['contig', 'phylum', 'length']].to_csv(keepers_outfile, sep='\t', index=False, header=False)
 speciesTbl.to_csv(species_outfile, sep='\t', index=False, header=True)
 
 print("Find Contaminants from BLOBs is finished.")
