@@ -8,12 +8,17 @@ Dependencies:
 * Python3 
 * Python pandas package
 * Python json package
+* Python os package
+* Python re package
+* Python numpy package
+* Python scipy package
+* Python Biopython package
 
 > export PATH=$PATH:[PATH TO FindContaminantsFromBlob]  
 
 ### Usage
   
-> python findContaminants.py pathToBlobdir .fasta 
+> python findContaminants.py pathToBlobdir pathToAssembly (.fasta format)  pathToBuscoTable 
 
 If no arguments are provided, the script will return help message.
 
@@ -21,7 +26,7 @@ If no arguments are provided, the script will return help message.
 
 * ./{blobdir prefix}\_contaminants.tsv 
 * ./{blobdir prefix}\_keepers.tsv 
-* ./{blobdir prefix}\_taxa.tsv
+* ./{blobdir prefix}\_all.tsv
 
 ### Citation
 
