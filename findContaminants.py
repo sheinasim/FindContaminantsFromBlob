@@ -14,9 +14,8 @@ parser.add_argument("fasta", help=".fasta BLASTed and Diamond BLASTed")
 parser.add_argument("buscoTable", help="The full table output of BUSCO (usually called: full_table.tsv for BUSCO5 or full_table_{outprefix}.tsv for BUSCO3)")
 args = parser.parse_args()
 
-df_buscos = pd.read_csv(args.buscoTable, sep='\t', comment='#')
-df_buscos.columns = ["busco id", "status", "record", "start", "end", "strand", "score", "Length", "orthoDB url", "description"]
-df_buscos = df_buscos[["busco id", "status", "record"]]
+df_buscos = pd.read_csv(args.buscoTable, sep='\t', comment='#', usecols=[0,1,2], header=None)
+df_buscos.columns = ["busco id", "status", "record"]
 
 df_record_lengths = pd.DataFrame(columns=('record', 'length'))
 for record in SeqIO.parse(args.fasta, "fasta"):
