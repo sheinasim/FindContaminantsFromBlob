@@ -14,7 +14,7 @@ parser.add_argument("buscoTable", help="The full table output of BUSCO (usually 
 parser.add_argument("fasta", help=".fasta BLASTed and Diamond BLASTed")
 args = parser.parse_args()
 
-df_buscos = pd.read_csv(args.buscoTable, sep='\t', comment='#', usecols=["0","1","2"], header=None)
+df_buscos = pd.read_csv(args.buscoTable, sep='\t', comment='#', usecols=[0, 1, 2], header=None)
 df_buscos.columns = ["busco id", "status", "record"]
 
 df_record_lengths = pd.DataFrame(columns=('record', 'length'))
