@@ -17,9 +17,12 @@ args = parser.parse_args()
 df_buscos = pd.read_csv(args.buscoTable, sep='\t', comment='#', usecols=[0, 1, 2], header=None)
 df_buscos.columns = ["busco id", "status", "record"]
 
+
 df_record_lengths = pd.DataFrame(columns=('record', 'length'))
 for record in SeqIO.parse(args.fasta, "fasta"):
 	df_record_lengths = df_record_lengths.append({'record' : record.name, 'length' : len(record.seq)}, ignore_index = True)
+
+df_buscos["record"] = df_buscos["record"].apply(str)
 
 with open(args.blobdir + '/identifiers.json', 'r') as f:
 		identifiers = json.loads(f.read()) 
@@ -81,6 +84,7 @@ def assignContaminantstoSpecies(taxa_dict, ctgLengths, cov):
         ]
     values = ['low', 'medium', 'high']
     df_id['coverage class'] = np.select(conditions, values)
+    df_id["record"] = df_id["record"].apply(str)
     return df_id
 
 def addBUSCOs(df, buscos):
